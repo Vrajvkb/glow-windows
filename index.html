@@ -1,0 +1,2314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080911">
+<meta name="description" content="Glow is audio-reactive ambient screen-edge lighting for Windows, with 11 styles, album-art colors and a now-playing screen with synced lyrics. CA$6.99.">
+<title>Glow — Make your setup feel alive</title>
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238b5cff'/%3E%3Cstop offset='1' stop-color='%2346e5f5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%23080911'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='url(%23g)' stroke-width='6'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Glow">
+<meta property="og:title" content="Glow — Make your setup feel alive">
+<meta property="og:description" content="Audio-reactive screen-edge lighting for Windows with 11 styles, album-art colors and synced lyrics. CA$6.99.">
+<!-- When your site is live, add: <meta property="og:image" content="https://YOUR-SITE/glow-share.png"> (1200x630) and <meta property="og:url" content="https://YOUR-SITE/"> -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Glow — Make your setup feel alive">
+<meta name="twitter:description" content="Audio-reactive screen-edge lighting for Windows with 11 styles, album-art colors and synced lyrics. CA$6.99.">
+<style>
+/* ==================================================================
+   DESIGN TOKENS & BASE
+   ================================================================== */
+
+:root {
+  --bg: #080911;
+  --panel: #10121f;
+  --text: #f6f7ff;
+  --muted: #a6abc4;
+  --line: rgba(190,198,255,.13);
+  --purple: #8b5cff;
+  --blue: #3985ff;
+  --cyan: #46e5f5;
+  --motion-ease: cubic-bezier(.22,1,.36,1);
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+
+/* ==================================================================
+   BASE ELEMENTS
+   ================================================================== */
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+.wrap {
+  width: min(1160px,calc(100% - 44px));
+  margin: auto;
+}
+
+/* ==================================================================
+   NAVIGATION & BUTTONS
+   ================================================================== */
+
+nav {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  z-index: 5;
+  background: rgba(8,9,17,.78);
+  backdrop-filter: blur(18px);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  letter-spacing: .23em;
+  font-weight: 750;
+}
+.logo {
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  background: linear-gradient(var(--bg),var(--bg)) padding-box,conic-gradient(from 35deg,var(--purple),var(--cyan),#4274ff,var(--purple)) border-box;
+  box-shadow: 0 0 24px #8657ff75;
+}
+.navlinks {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  color: #c0c4d9;
+  font-size: 14px;
+}
+.navlinks a:hover {
+  color: #fff;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 19px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #ffffff06;
+  color: white;
+  font-weight: 650;
+  font-size: 14px;
+  cursor: pointer;
+  transition: .2s;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  border-color: #8b5cff99;
+}
+.btn-primary {
+  border: 0;
+  background: linear-gradient(110deg,#8c42ff,#416dff);
+  box-shadow: 0 8px 32px #6e45ff42;
+}
+.btn-primary:hover {
+  box-shadow: 0 10px 40px #6e45ff70;
+}
+.menu {
+  display: none;
+  background: none;
+  color: white;
+  border: 0;
+  font-size: 24px;
+}
+
+/* ==================================================================
+   HERO
+   ================================================================== */
+
+.hero {
+  position: relative;
+  min-height: 650px;
+  display: grid;
+  grid-template-columns: .92fr 1.08fr;
+  align-items: center;
+  gap: 30px;
+  padding: 68px 0 58px;
+}
+.hero:before {
+  content: "";
+  position: absolute;
+  inset: -100px -16vw 0 15%;
+  background: radial-gradient(ellipse at 67% 47%,#4b26a84a,transparent 42%),radial-gradient(ellipse at 80% 65%,#1261d52c,transparent 38%);
+  pointer-events: none;
+  z-index: -1;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #8c67ff55;
+  background: #8b5cff13;
+  color: #d9ccff;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.dot {
+  width: 7px;
+  height: 7px;
+  background: var(--cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--cyan);
+}
+h1 {
+  font-size: clamp(44px,5.2vw,72px);
+  line-height: 1.02;
+  letter-spacing: -.055em;
+  margin: 24px 0 20px;
+  font-weight: 780;
+}
+h1 span {
+  background: linear-gradient(100deg,#bd87ff,#6c91ff 60%,#65e7f5);
+  background-clip: text;
+  color: transparent;
+}
+.hero-copy {
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 470px;
+  line-height: 1.8;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 27px 0 16px;
+}
+.fine {
+  color: #858ba7;
+  font-size: 12px;
+}
+.fine strong {
+  color: #bfc4df;
+  font-weight: 600;
+}
+.visual {
+  position: relative;
+  min-height: 450px;
+  display: grid;
+  place-items: center;
+}
+.halo {
+  position: absolute;
+  width: 88%;
+  height: 70%;
+  background: radial-gradient(ellipse,#5434c84a,transparent 65%);
+  filter: blur(25px);
+}
+.monitor {
+  position: relative;
+  width: min(100%,550px);
+  padding: 9px;
+  border-radius: 16px;
+  background: linear-gradient(145deg,#3a3b54,#12131d 22%,#252638 80%,#11121c);
+  box-shadow: 0 28px 80px #0009;
+}
+.screen {
+  position: relative;
+  aspect-ratio: 1.48;
+  border-radius: 9px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 55%,#182b62 0,#0d1534 43%,#070914 78%);
+  border: 1px solid #7d63ff55;
+}
+.screen:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  box-shadow: inset 0 0 18px #9b55ff,inset 0 0 48px #336effbb,0 0 18px #8e48ff;
+  pointer-events: none;
+  animation: edgepulse 3.5s ease-in-out infinite alternate;
+}
+.screen:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg,transparent 15%,#6a55ff20 48%,transparent 72%);
+  pointer-events: none;
+}
+.scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 22px;
+}
+.orb {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%,#d8f8ff,#7b78ff 20%,#4c29a8 48%,#11112b 72%);
+  box-shadow: 0 0 35px #6d5bffbb,0 0 90px #315fff65;
+  margin-bottom: 18px;
+  animation: float 5s ease-in-out infinite;
+}
+.scene small {
+  letter-spacing: .2em;
+  color: #bfc7ff;
+  font-size: 10px;
+}
+.scene h3 {
+  font-size: 19px;
+  margin: 5px 0 0;
+  letter-spacing: .04em;
+}
+.stand {
+  width: 23%;
+  height: 35px;
+  background: linear-gradient(90deg,#10111b,#34364c,#11121c);
+  clip-path: polygon(30% 0,70% 0,83% 100%,17% 100%);
+  margin: auto;
+}
+.base {
+  height: 12px;
+  width: 43%;
+  margin: auto;
+  background: linear-gradient(#35374b,#0e0f17);
+  border-radius: 50%;
+  filter: drop-shadow(0 5px 15px #4c46ff44);
+}
+.desk {
+  height: 12px;
+  width: 105%;
+  margin-left: -2.5%;
+  background: linear-gradient(#1a1b2b,#090a12);
+  border-radius: 4px;
+  box-shadow: 0 15px 40px #000;
+}
+.float-card {
+  position: absolute;
+  bottom: 34px;
+  left: -2px;
+  background: #101321df;
+  border: 1px solid var(--line);
+  backdrop-filter: blur(15px);
+  border-radius: 13px;
+  padding: 14px 16px;
+  box-shadow: 0 16px 50px #0006;
+  min-width: 200px;
+}
+.float-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.equalizer {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 25px;
+  margin-top: 8px;
+}
+.equalizer i {
+  display: block;
+  width: 4px;
+  border-radius: 5px;
+  background: linear-gradient(var(--cyan),var(--purple));
+  height: var(--h);
+  animation: bars .7s ease-in-out infinite alternate;
+  animation-delay: var(--d);
+}
+.float-card span {
+  font-size: 11px;
+  color: var(--muted);
+}
+@keyframes edgepulse {
+  from {
+    opacity: .65;
+    filter: hue-rotate(-15deg);
+  }
+  to {
+    opacity: 1;
+    filter: hue-rotate(20deg);
+  }
+}
+@keyframes float {
+  50% {
+    transform: translateY(-9px);
+  }
+}
+@keyframes bars {
+  to {
+    transform: scaleY(.45);
+    opacity: .65;
+  }
+}
+
+/* ==================================================================
+   FEATURE STRIP
+   ================================================================== */
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 28px 0;
+  margin: 0 0 100px;
+}
+.feature {
+  display: flex;
+  gap: 14px;
+  padding: 8px 25px;
+  border-right: 1px solid var(--line);
+}
+.feature:first-child {
+  padding-left: 0;
+}
+.feature:last-child {
+  border: 0;
+}
+.ficon {
+  flex: 0 0 43px;
+  height: 43px;
+  border: 1px solid #8e75ff40;
+  border-radius: 14px;
+  background: linear-gradient(145deg,#8b5cff20,#348dff10);
+  display: grid;
+  place-items: center;
+  color: #b9a2ff;
+  font-size: 20px;
+}
+.feature h3 {
+  font-size: 14px;
+  margin: 0 0 4px;
+}
+.feature p {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* ==================================================================
+   SHARED SECTION HEADINGS
+   ================================================================== */
+
+section {
+  scroll-margin-top: 90px;
+}
+.section-head {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 40px;
+}
+.section-head .eyebrow {
+  margin-bottom: 12px;
+}
+.section-head h2 {
+  font-size: clamp(30px,4vw,45px);
+  letter-spacing: -.04em;
+  line-height: 1.1;
+  margin: 10px 0 13px;
+}
+.section-head p {
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ==================================================================
+   INTERACTIVE DEMO
+   ================================================================== */
+
+.demo {
+  padding: 0 0 105px;
+}
+.demo-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: linear-gradient(140deg,#141527,#0d0e18 60%);
+  box-shadow: 0 25px 90px #0003;
+}
+.demo-stage {
+  min-height: 320px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(ellipse at center,#202a58,#0a0b14 70%);
+}
+.demo-screen {
+  position: absolute;
+  inset: 18px;
+  border-radius: 9px;
+  border: 1px solid #313858;
+  background: linear-gradient(145deg,#10172e,#0b0d18);
+  overflow: hidden;
+}
+.demo-screen:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 var(--glow,20px) var(--demo-color,#875cff),inset 0 0 calc(var(--glow,20px)*2.5) color-mix(in srgb,var(--demo-color,#875cff) 48%,transparent);
+  opacity: var(--opacity,.8);
+}
+.demo-screen:after {
+  content: "GLOW";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: clamp(35px,6vw,62px);
+  letter-spacing: .28em;
+  font-weight: 800;
+  color: #ffffffc9;
+  text-shadow: 0 0 35px var(--demo-color,#875cff);
+}
+.demo-controls {
+  padding: 8px 4px;
+}
+.demo-controls h3 {
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+.demo-controls>p {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 0 0 22px;
+}
+.control {
+  margin: 19px 0;
+}
+.control-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  margin-bottom: 9px;
+}
+.control-head output {
+  color: #c5b6ff;
+  font-variant-numeric: tabular-nums;
+}
+.range {
+  width: 100%;
+  accent-color: #956bff;
+  cursor: pointer;
+}
+.color-row {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+.swatch {
+  width: 27px;
+  height: 27px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 0 1px #ffffff28;
+}
+.swatch.active {
+  outline: 2px solid white;
+  outline-offset: 3px;
+}
+.demo-note {
+  font-size: 11px;
+  color: #8389a5;
+  margin-top: 20px;
+}
+
+/* ==================================================================
+   HOW IT WORKS
+   ================================================================== */
+
+.how {
+  padding: 0 0 105px;
+}
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 17px;
+}
+.step {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #ffffff03;
+}
+.step-num {
+  font-size: 12px;
+  color: #b6a2ff;
+  letter-spacing: .15em;
+  font-weight: 800;
+}
+.step h3 {
+  font-size: 17px;
+  margin: 17px 0 8px;
+}
+.step p {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.8;
+}
+
+/* ==================================================================
+   DOWNLOAD BOX
+   ================================================================== */
+
+.download {
+  padding: 0 0 100px;
+}
+.download-box {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 55px 25px;
+  border: 1px solid #8a65ff42;
+  border-radius: 24px;
+  background: radial-gradient(ellipse at 50% 120%,#5c3bc33b,transparent 60%),linear-gradient(120deg,#151329,#0d1020);
+}
+.download-box h2 {
+  font-size: clamp(30px,4vw,44px);
+  letter-spacing: -.04em;
+  margin: 15px 0 10px;
+}
+.download-box p {
+  color: var(--muted);
+  max-width: 520px;
+  margin: 0 auto 24px;
+}
+.download-box .fine {
+  margin-top: 13px;
+}
+
+/* ==================================================================
+   FAQ
+   ================================================================== */
+
+.faq {
+  padding: 0 0 100px;
+}
+.faq-list {
+  max-width: 780px;
+  margin: auto;
+}
+.faq details {
+  border-bottom: 1px solid var(--line);
+  padding: 19px 0;
+}
+.faq summary {
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 650;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.faq summary:after {
+  content: "+";
+  color: #b7a2ff;
+  font-size: 21px;
+  line-height: 1;
+}
+details[open] summary:after {
+  content: "−";
+}
+.faq details p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+  max-width: 690px;
+}
+
+/* ==================================================================
+   FOOTER
+   ================================================================== */
+
+footer {
+  border-top: 1px solid var(--line);
+  padding: 26px 0;
+  color: #858ba7;
+  font-size: 12px;
+}
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.foot .brand {
+  font-size: 15px;
+}
+.footlinks {
+  display: flex;
+  gap: 20px;
+}
+
+/* ==================================================================
+   PURCHASE NOTICE (MODAL)
+   ================================================================== */
+
+.notice {
+  position: fixed;
+  inset: 0;
+  background: #000a;
+  display: none;
+  place-items: center;
+  z-index: 20;
+  padding: 20px;
+}
+.notice.open {
+  display: grid;
+}
+.modal {
+  max-width: 430px;
+  padding: 27px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: #111321;
+  box-shadow: 0 25px 80px #0009;
+}
+.modal h3 {
+  margin: 0 0 8px;
+}
+.modal p {
+  color: var(--muted);
+  font-size: 14px;
+}
+.modal .btn {
+  margin-top: 10px;
+}
+/* ==================================================================
+   RESPONSIVE OVERRIDES  (base sections: nav, hero, demo, steps, download)
+   ================================================================== */
+
+@media (max-width: 850px) {
+  .navlinks {
+    gap: 17px;
+  }
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 55px;
+  }
+  .hero-copy {
+    max-width: 600px;
+  }
+  .visual {
+    min-height: 390px;
+  }
+  .features {
+    margin-bottom: 75px;
+  }
+  .feature {
+    padding: 8px 13px;
+  }
+  .demo-card {
+    grid-template-columns: 1fr;
+  }
+  .demo-stage {
+    min-height: 290px;
+  }
+  .steps {
+    gap: 10px;
+  }
+  .step {
+    padding: 18px;
+  }
+}
+@media (max-width: 620px) {
+  .wrap {
+    width: min(100% - 30px,1160px);
+  }
+  nav {
+    height: 66px;
+  }
+  .navlinks {
+    display: none;
+    position: absolute;
+    top: 65px;
+    left: 0;
+    right: 0;
+    background: #0b0c16;
+    border-bottom: 1px solid var(--line);
+    padding: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .navlinks.open {
+    display: flex;
+  }
+  .nav-cta {
+    display: none;
+  }
+  .menu {
+    display: block;
+  }
+  .hero {
+    padding: 46px 0 35px;
+    gap: 8px;
+    min-height: 0;
+  }
+  .hero h1 {
+    font-size: 47px;
+  }
+  .hero-copy {
+    font-size: 15px;
+  }
+  .visual {
+    min-height: 310px;
+  }
+  .monitor {
+    width: 96%;
+  }
+  .orb {
+    width: 75px;
+    height: 75px;
+  }
+  .float-card {
+    bottom: 7px;
+    left: 0;
+    min-width: 170px;
+    padding: 10px;
+  }
+  .features {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 22px 0;
+    margin-bottom: 75px;
+  }
+  .feature,
+  .feature:first-child {
+    border-right: 0;
+    padding: 0;
+  }
+  .feature:last-child {
+    border: 0;
+  }
+  .demo {
+    padding-bottom: 75px;
+  }
+  .demo-card {
+    padding: 14px;
+    gap: 16px;
+  }
+  .demo-stage {
+    min-height: 235px;
+  }
+  .steps {
+    grid-template-columns: 1fr;
+  }
+  .step {
+    padding: 20px;
+  }
+  .how,
+  .download {
+    padding-bottom: 75px;
+  }
+  .download-box {
+    padding: 42px 18px;
+  }
+  .foot {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .footlinks {
+    flex-wrap: wrap;
+  }
+}
+
+/* ==================================================================
+   AMBIENT STRIP, STATS, DETAIL CARDS, QUOTE
+   ================================================================== */
+
+.ambient-strip {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 34px;
+  align-items: center;
+  margin: 0 0 110px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: linear-gradient(125deg,#17152b,#0b0d17 70%);
+  overflow: hidden;
+}
+.ambient-copy h2 {
+  font-size: clamp(28px,3.4vw,42px);
+  line-height: 1.08;
+  letter-spacing: -.045em;
+  margin: 15px 0;
+}
+.ambient-copy p {
+  color: var(--muted);
+  max-width: 480px;
+  font-size: 14px;
+  line-height: 1.85;
+}
+.pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.pill {
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-size: 11px;
+  color: #c4c8df;
+  background: #ffffff04;
+}
+.art-panel {
+  min-height: 280px;
+  position: relative;
+  border-radius: 17px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 75%,#5332c84a,transparent 60%),linear-gradient(150deg,#11152b,#090a12);
+  display: grid;
+  place-items: center;
+}
+.art-window {
+  width: 76%;
+  height: 180px;
+  border-radius: 9px;
+  background: #0b1022;
+  border: 1px solid #5b55a4;
+  box-shadow: inset 0 0 26px #835cff66,0 0 30px #7c5cff30;
+  position: relative;
+  overflow: hidden;
+}
+.art-window:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(130deg,transparent 20%,#5c78ff1b 45%,transparent 70%);
+}
+.art-bars {
+  position: absolute;
+  bottom: 24px;
+  left: 18px;
+  right: 18px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.art-bars i {
+  width: 5px;
+  height: var(--h);
+  border-radius: 5px;
+  background: linear-gradient(#53e8f4,#8b5cff);
+  box-shadow: 0 0 13px #7e65ff80;
+}
+.art-label {
+  position: absolute;
+  top: 17px;
+  left: 18px;
+  font-size: 9px;
+  letter-spacing: .18em;
+  color: #c4c9f5;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+  margin: 0 0 105px;
+}
+.stat {
+  padding: 19px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: #ffffff03;
+}
+.stat strong {
+  display: block;
+  font-size: 19px;
+  letter-spacing: -.03em;
+}
+.stat span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 16px;
+  margin-top: 28px;
+}
+.detail-card {
+  border: 1px solid var(--line);
+  border-radius: 19px;
+  padding: 25px;
+  background: linear-gradient(145deg,#141526,#0b0c15);
+  min-height: 190px;
+  position: relative;
+  overflow: hidden;
+}
+.detail-card:after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  right: -65px;
+  bottom: -80px;
+  background: #865cff22;
+  filter: blur(4px);
+}
+.detail-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  color: #d1c4ff;
+  background: #8b5cff1a;
+  border: 1px solid #8b5cff36;
+  font-size: 19px;
+}
+.detail-card h3 {
+  margin: 17px 0 6px;
+  font-size: 17px;
+}
+.detail-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+  max-width: 420px;
+}
+.testimonial {
+  margin: 0 0 100px;
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: radial-gradient(ellipse at 0% 0%,#6b48d31e,transparent 50%),#ffffff03;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+.quote-mark {
+  font-size: 42px;
+  line-height: 1;
+  color: #a58bff;
+}
+.testimonial p {
+  font-size: 18px;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 800px;
+}
+.testimonial small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 12px;
+}
+footer .foot {
+  flex-wrap: wrap;
+}
+@media (max-width: 850px) {
+  .ambient-strip {
+    grid-template-columns: 1fr;
+  }
+  .art-panel {
+    min-height: 250px;
+  }
+  .detail-grid {
+    gap: 12px;
+  }
+}
+@media (max-width: 620px) {
+  .ambient-strip {
+    padding: 18px;
+    margin-bottom: 75px;
+  }
+  .art-panel {
+    min-height: 220px;
+  }
+  .stats {
+    gap: 8px;
+    margin-bottom: 75px;
+  }
+  .stat {
+    padding: 13px;
+  }
+  .stat strong {
+    font-size: 16px;
+  }
+  .stat span {
+    font-size: 10px;
+  }
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+  .testimonial {
+    padding: 22px;
+    margin-bottom: 75px;
+  }
+  .testimonial p {
+    font-size: 16px;
+  }
+}
+body {
+  scrollbar-gutter: stable;
+}
+/* ==================================================================
+   MOTION LAYER  (hover, float, reveal-on-scroll)
+   ================================================================== */
+
+a,
+button,
+.btn,
+.feature,
+.step,
+.detail-card,
+.stat,
+.float-card {
+  transition: transform .35s var(--motion-ease),border-color .35s ease,background-color .35s ease,box-shadow .35s ease,opacity .35s ease;
+}
+.btn:active {
+  transform: translateY(0) scale(.98);
+}
+.logo {
+  will-change: transform;
+  animation: logoAura 7s ease-in-out infinite alternate;
+}
+@keyframes logoAura {
+  from {
+    box-shadow: 0 0 12px #8657ff35;
+    transform: rotate(0deg);
+  }
+  to {
+    box-shadow: 0 0 27px #8657ff85;
+    transform: rotate(24deg);
+  }
+}
+.hero:before {
+  animation: ambientDrift 16s ease-in-out infinite alternate;
+  transform: translateZ(0);
+  will-change: transform;
+}
+@keyframes ambientDrift {
+  from {
+    transform: translate3d(-1%,0,0) scale(1);
+  }
+  to {
+    transform: translate3d(2%,2%,0) scale(1.06);
+  }
+}
+.monitor {
+  transform: perspective(1100px) rotateY(-3deg) rotateX(1deg) translateZ(0);
+  transition: transform .7s var(--motion-ease),filter .7s ease;
+  will-change: transform;
+}
+.monitor:hover {
+  transform: perspective(1100px) rotateY(0) rotateX(0) translateY(-5px) translateZ(0);
+  filter: drop-shadow(0 18px 30px #6c4aff18);
+}
+.screen:before {
+  will-change: opacity,filter;
+  animation: edgepulse 4.5s ease-in-out infinite alternate;
+}
+.orb {
+  will-change: transform;
+  animation: float 6s ease-in-out infinite;
+}
+.float-card {
+  animation: cardFloat 7s ease-in-out infinite;
+  will-change: transform;
+}
+@keyframes cardFloat {
+  0%,100% {
+    transform: translate3d(0,0,0);
+  }
+  50% {
+    transform: translate3d(0,-7px,0);
+  }
+}
+.art-window {
+  will-change: box-shadow;
+  animation: artPulse 5s ease-in-out infinite alternate;
+}
+@keyframes artPulse {
+  from {
+    box-shadow: inset 0 0 18px #835cff40,0 0 18px #7c5cff20;
+  }
+  to {
+    box-shadow: inset 0 0 38px #835cff85,0 0 36px #7c5cff50;
+  }
+}
+.js-reveal .reveal {
+  opacity: 0;
+  transform: translate3d(0,24px,0);
+  transition: opacity .75s var(--motion-ease),transform .75s var(--motion-ease);
+  will-change: opacity,transform;
+}
+.js-reveal .reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0,0,0);
+}
+.js-reveal .reveal[data-delay="1"] {
+  transition-delay: .08s;
+}
+.js-reveal .reveal[data-delay="2"] {
+  transition-delay: .16s;
+}
+.js-reveal .reveal[data-delay="3"] {
+  transition-delay: .24s;
+}
+.feature:hover,
+.step:hover,
+.detail-card:hover,
+.stat:hover {
+  transform: translateY(-4px);
+  border-color: #9276ff66;
+  box-shadow: 0 14px 40px #0002;
+}
+.demo-screen:before {
+  transition: box-shadow .25s ease,opacity .25s ease;
+  animation: demoPulse var(--pulse,4.25s) ease-in-out infinite alternate;
+  animation-play-state: var(--pulse-state,running);
+}
+@keyframes demoPulse {
+  from { filter: hue-rotate(-12deg) brightness(.9); }
+  to   { filter: hue-rotate(14deg) brightness(1.08); }
+}
+::selection {
+  background: #8b5cff66;
+  color: #fff;
+}
+
+/* ==================================================================
+   SCROLL WORD SEQUENCE
+   ================================================================== */
+
+.glow-scroll {
+  position: relative;
+  margin: 0 0 110px;
+  padding: clamp(28px,5vw,64px) 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: radial-gradient(ellipse at 76% 50%,#39216d24,transparent 48%);
+}
+.glow-scroll .scroll-kicker {
+  color: #bba8ff;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  font-size: 11px;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+.glow-scroll .scroll-intro {
+  max-width: 760px;
+  margin: 0 auto 34px;
+  text-align: center;
+  padding: 0 18px;
+}
+.glow-scroll .scroll-intro h2 {
+  font-size: clamp(30px,4vw,46px);
+  letter-spacing: -.05em;
+  line-height: 1.06;
+  margin: 0 0 12px;
+}
+.glow-scroll .scroll-intro p {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0;
+}
+.glow-scroll .scroll-stage {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(18px,4vw,64px);
+  width: min(900px,100%);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.glow-scroll .scroll-sticky {
+  position: sticky;
+  top: calc(50vh - .6em);
+  flex: 0 0 38%;
+  font-size: clamp(25px,4.1vw,53px);
+  font-weight: 760;
+  letter-spacing: -.06em;
+  line-height: 1.02;
+  margin: 0;
+  background: linear-gradient(180deg,#fff 20%,#9da4c7 100%);
+  background-clip: text;
+  color: transparent;
+}
+.glow-scroll .scroll-sticky span {
+  display: block;
+  color: #a997ff;
+  background: none;
+}
+.glow-scroll .scroll-words {
+  --word-count: 12;
+  flex: 1;
+  min-width: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: clamp(28px,4.4vw,56px);
+  line-height: 1.2;
+  font-weight: 730;
+  letter-spacing: -.045em;
+}
+.glow-scroll .scroll-words li {
+  min-height: 1.2em;
+  opacity: .24;
+  color: oklch(76% .18 calc(250 + (var(--i) * 13)));
+  overflow-wrap: anywhere;
+}
+.glow-scroll .scroll-words li:last-child {
+  background: linear-gradient(180deg,#fff,#8c93b9);
+  background-clip: text;
+  color: transparent;
+}
+@supports (animation-timeline: view()) and (animation-range: cover 0% 100%) {
+  .glow-scroll .scroll-words li {
+    animation: glowWordFocus linear both;
+    animation-timeline: view();
+    animation-range: cover calc(50% - .7lh) calc(50% + .7lh);
+  }
+  @keyframes glowWordFocus {
+    0%,100% {
+      opacity: .24;
+      filter: brightness(.85);
+    }
+    50% {
+      opacity: 1;
+      filter: brightness(1.3);
+    }
+  }
+}
+@media (max-width: 620px) {
+  .glow-scroll {
+    margin-bottom: 75px;
+    padding: 36px 0;
+  }
+  .glow-scroll .scroll-intro {
+    margin-bottom: 24px;
+  }
+  .glow-scroll .scroll-stage {
+    gap: 12px;
+    padding: 0 15px;
+  }
+  .glow-scroll .scroll-sticky {
+    flex-basis: 35%;
+    font-size: clamp(22px,6vw,31px);
+    top: calc(42vh - .6em);
+  }
+  .glow-scroll .scroll-words {
+    font-size: clamp(25px,7vw,36px);
+  }
+}
+
+/* ==================================================================
+   ATMOSPHERE LAYER  (three.js canvas, grid lines, progress bar)
+   ================================================================== */
+
+#glow-atmosphere {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+  opacity: .88;
+}
+main,
+footer {
+  position: relative;
+  z-index: 1;
+}
+nav {
+  position: relative;
+  z-index: 5;
+}
+.glow-grid {
+  position: fixed;
+  inset: 0 32px;
+  z-index: 0;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
+  opacity: .42;
+}
+.glow-grid span {
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom,transparent,rgba(172,163,255,.12) 16%,rgba(172,163,255,.08) 82%,transparent);
+}
+.glow-grid span:nth-child(3) {
+  margin-top: 76px;
+  height: calc(100% - 76px);
+}
+.glow-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 50;
+  pointer-events: none;
+  background: #ffffff0c;
+}
+.glow-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg,#8b5cff,#3985ff,#46e5f5);
+  box-shadow: 0 0 14px #6d6cffaa;
+  transform-origin: left center;
+}
+@media (max-width: 620px) {
+  .glow-grid {
+    inset: 0 15px;
+    opacity: .25;
+  }
+  .glow-grid span:nth-child(2),
+  .glow-grid span:nth-child(4) {
+    display: none;
+  }
+  #glow-atmosphere {
+    opacity: .68;
+  }
+}
+
+/* ==================================================================
+   CUSTOM CURSOR
+   ================================================================== */
+
+@media (hover: hover) and (pointer: fine) and (min-width: 621px) {
+  body.glow-cursor-on,
+  body.glow-cursor-on a,
+  body.glow-cursor-on button,
+  body.glow-cursor-on input,
+  body.glow-cursor-on summary {
+    cursor: none !important;
+  }
+  #glow-cursor {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate3d(-100px,-100px,0);
+    will-change: transform;
+    transition: opacity .2s ease;
+  }
+  #glow-cursor.is-visible {
+    opacity: 1;
+  }
+  #glow-cursor .cursor-core {
+    position: absolute;
+    left: -7px;
+    top: -7px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#b98aff,#4ce7f4);
+    box-shadow: 0 0 18px #8b5cff88;
+    transition: width .22s ease,height .22s ease,left .22s ease,top .22s ease,background .22s ease;
+  }
+  #glow-cursor .cursor-label {
+    position: absolute;
+    left: 13px;
+    top: 13px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+    border: 1px solid #b8a0ff55;
+    border-radius: 999px;
+    padding: 8px 11px;
+    background: rgba(10,11,24,.82);
+    backdrop-filter: blur(14px);
+    color: #f7f5ff;
+    font-size: 9px;
+    line-height: 1;
+    letter-spacing: .16em;
+    font-weight: 800;
+    box-shadow: 0 8px 28px #0005;
+    transition: background .2s,border-color .2s,transform .2s;
+  }
+  #glow-cursor .cursor-label:before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #55e7f4;
+    box-shadow: 0 0 8px #55e7f4;
+  }
+  #glow-cursor.is-active .cursor-core {
+    width: 22px;
+    height: 22px;
+    left: -11px;
+    top: -11px;
+    background: linear-gradient(135deg,#9c69ff,#4ce7f4);
+  }
+  #glow-cursor.is-active .cursor-label {
+    background: rgba(42,27,78,.9);
+    border-color: #a78bfa;
+    transform: translate(3px,3px);
+  }
+  #glow-cursor.is-scroll .cursor-label {
+    background: rgba(24,43,76,.92);
+    border-color: #4ce7f4;
+  }
+}
+
+/* ==================================================================
+   ACCESSIBILITY  (skip link, keyboard focus)
+   ================================================================== */
+
+.skip-link {
+  position: fixed;
+  left: 14px;
+  top: -60px;
+  z-index: 10000;
+  background: #fff;
+  color: #080911;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  transition: top .2s;
+}
+.skip-link:focus {
+  top: 12px;
+}
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.btn:focus-visible {
+  border-radius: 999px;
+}
+
+/* ==================================================================
+   SHOWCASE  (real screenshot / video, hidden until files exist)
+   ================================================================== */
+
+.showcase {
+  padding: 0 0 105px;
+}
+.showcase-frame {
+  position: relative;
+  max-width: 980px;
+  margin: auto;
+  border-radius: 18px;
+  border: 1px solid #8a65ff42;
+  background: #0b0d17;
+  overflow: hidden;
+  box-shadow: 0 30px 100px #4b26a850,0 0 0 1px #ffffff08;
+}
+.showcase-frame img,
+.showcase-frame video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.showcase [hidden],
+.showcase[hidden] {
+  display: none!important;
+}
+.showcase-frame figcaption {
+  padding: 12px 18px;
+  font-size: 12px;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+/* ==================================================================
+   TRUST CARDS  (requirements, refunds, support)
+   ================================================================== */
+
+.trust {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 14px;
+  margin: 0 0 100px;
+}
+.trust-card {
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #ffffff03;
+}
+.trust-card h3 {
+  font-size: 14px;
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.trust-card h3:before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+}
+.trust-card p,
+.trust-card li {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.75;
+  margin: 0;
+}
+.trust-card ul {
+  margin: 0;
+  padding-left: 18px;
+}
+.trust-card a {
+  color: #c9b9ff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 850px) {
+  .trust {
+    grid-template-columns: 1fr;
+  }
+}
+/* ======================================================================
+   NOW-PLAYING MOCKUP  (decorative preview in the now-playing section)
+   ====================================================================== */
+.pills-center {
+  justify-content: center;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.styles {
+  padding: 0 0 100px;
+}
+.np-mock {
+  width: 78%;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px;
+  border-radius: 9px;
+  background: #0b1022;
+  border: 1px solid #5b55a4;
+  box-shadow: inset 0 0 26px #835cff66, 0 0 30px #7c5cff30;
+}
+.np-cover {
+  flex: 0 0 96px;
+  height: 96px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #8b5cff, #46e5f5);
+  box-shadow: 0 0 30px #7c5cff80;
+}
+.np-lines {
+  flex: 1;
+  display: grid;
+  gap: 11px;
+}
+.np-lines i {
+  display: block;
+  height: 8px;
+  border-radius: 4px;
+  background: #fff;
+}
+.np-lines i:nth-child(1) { width: 60%; opacity: .2; }
+.np-lines i:nth-child(2) { width: 92%; opacity: .9; }
+.np-lines i:nth-child(3) { width: 75%; opacity: .35; }
+.np-lines i:nth-child(4) { width: 50%; opacity: .15; }
+@media (max-width: 620px) {
+  .np-cover { flex-basis: 64px; height: 64px; }
+  .np-mock { width: 88%; min-height: 140px; gap: 12px; padding: 14px; }
+}
+
+/* ======================================================================
+   UTILITIES  (replace repeated inline styles in the HTML)
+   ====================================================================== */
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.visual-stack {
+  width: 100%;
+  position: relative;
+}
+.float-card .tag-live {
+  margin-left: auto;
+  color: #a7a0ff;
+}
+.equalizer-caption {
+  margin-left: 8px;
+}
+.text-gradient {
+  background: linear-gradient(100deg, #bd87ff, #65e7f5);
+  background-clip: text;
+  color: transparent;
+}
+.color-input {
+  width: 31px;
+  height: 31px;
+  padding: 1px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.details {
+  padding: 0 0 105px;
+}
+.price {
+  font-size: clamp(38px, 6vw, 58px);
+  font-weight: 800;
+  letter-spacing: -.06em;
+  margin: 10px 0 8px;
+}
+.faq-list a {
+  color: #c9b9ff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.showcase-frame {
+  margin: auto;
+}
+
+/* ======================================================================
+   REDUCED MOTION  (all prefers-reduced-motion overrides in one place)
+   ====================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *:before,
+  *:after {
+    scroll-behavior: auto!important;
+    animation: none!important;
+    transition: none!important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  .js-reveal .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .logo,
+  .hero:before,
+  .monitor,
+  .screen:before,
+  .orb,
+  .float-card,
+  .art-window {
+    animation: none!important;
+    will-change: auto;
+  }
+  .glow-scroll .scroll-words li {
+    opacity: 1;
+    animation: none!important;
+  }
+  #glow-atmosphere {
+    opacity: .38;
+  }
+  .glow-grid {
+    display: none;
+  }
+  #glow-cursor .cursor-core,
+  #glow-cursor .cursor-label {
+    transition: none!important;
+  }
+}
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<!-- ===== Background layers (decorative) ===== -->
+<canvas id="glow-atmosphere" aria-hidden="true"></canvas>
+<div class="glow-grid" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+<div class="glow-progress" aria-hidden="true"><div class="glow-progress-fill" id="glowProgressFill"></div></div>
+<div id="glow-cursor" aria-hidden="true"><span class="cursor-core"></span><span class="cursor-label" id="glowCursorLabel">MOVE</span></div>
+<!-- ===== Navigation ===== -->
+<nav>
+ <div class="wrap nav-inner">
+  <a class="brand" href="#top" aria-label="Glow home"><span class="logo"></span>GLOW</a>
+  <div class="navlinks" id="navlinks"><a href="#features">Features</a><a href="#demo">Try the glow</a><a href="#how">How it works</a><a href="#faq">FAQ</a></div>
+  <div class="nav-actions"><a class="btn btn-primary nav-cta" href="#download">Get Glow · CA$6.99</a><button class="menu" id="menu" aria-label="Toggle menu">☰</button></div>
+ </div>
+</nav>
+<main id="top"><span id="main-content" tabindex="-1"></span>
+ <div class="wrap">
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+   <div class="hero-text">
+    <div class="eyebrow"><span class="dot"></span> Available for Windows · CA$6.99</div>
+    <h1>Make your setup<br>feel <span>alive.</span></h1>
+    <p class="hero-copy">A little atmosphere goes a long way. Glow turns the edges of your screen into light that moves with whatever you're playing, and can fill the whole screen with your album cover and synced lyrics.</p>
+    <div class="actions"><a class="btn btn-primary" href="#download">Get Glow · CA$6.99</a><a class="btn" href="#demo">Explore the glow <span aria-hidden="true">↘</span></a></div>
+    <div class="fine"><strong>11 styles.</strong> Album-art colors, rainbow or your own.</div>
+   </div>
+   <div class="visual" aria-label="Illustration of a monitor with glowing edges">
+    <div class="halo"></div>
+    <div class="visual-stack">
+     <div class="monitor"><div class="screen"><div class="scene"><div class="orb"></div><small>LET THE SOUND SET THE MOOD</small><h3>Your space. Your vibe.</h3></div></div></div>
+     <div class="stand"></div><div class="base"></div><div class="desk"></div>
+    </div>
+    <div class="float-card"><div class="float-title"><span class="dot"></span> Audio reactive <span class="tag-live">LIVE PREVIEW</span></div><div class="equalizer">
+       <i style="--h:10px;--d:.1s"></i>
+       <i style="--h:18px;--d:.3s"></i>
+       <i style="--h:13px;--d:.2s"></i>
+       <i style="--h:24px;--d:.5s"></i>
+       <i style="--h:15px;--d:.1s"></i>
+       <i style="--h:20px;--d:.4s"></i>
+       <i style="--h:9px;--d:.2s"></i>
+       <i style="--h:17px;--d:.6s"></i>
+       <i style="--h:12px;--d:.3s"></i>
+      <span class="equalizer-caption">Sound in. Color out.</span></div></div>
+   </div>
+  </section>
+  <!-- ===== Ambient strip ===== -->
+  <section class="ambient-strip" aria-label="Ambient lighting">
+   <div class="ambient-copy">
+    <div class="eyebrow">A different kind of desktop</div>
+    <h2>Not another app to stare at.<br><span class="text-gradient">A mood to feel.</span></h2>
+    <p>Glow adds a soft frame of light around your screen that follows your system audio, from deep bass to treble, and pulses on the beat. Pick from 11 styles and let it pull colors straight from your album art.</p>
+    <div class="pills"><span class="pill">Audio-reactive</span><span class="pill">11 styles</span><span class="pill">Album-art colors</span><span class="pill">Synced lyrics</span><span class="pill">Windows desktop</span></div>
+   </div>
+   <div class="art-panel" aria-hidden="true"><div class="art-window"><div class="art-label">GLOW / AMBIENT MODE</div><div class="art-bars">
+       <i style="--h:17px"></i>
+       <i style="--h:31px"></i>
+       <i style="--h:45px"></i>
+       <i style="--h:27px"></i>
+       <i style="--h:57px"></i>
+       <i style="--h:36px"></i>
+       <i style="--h:64px"></i>
+       <i style="--h:40px"></i>
+       <i style="--h:26px"></i>
+       <i style="--h:48px"></i>
+       <i style="--h:32px"></i>
+       <i style="--h:18px"></i>
+      </div></div></div>
+  </section>
+  <!-- ===== Quick stats ===== -->
+  <section class="stats" aria-label="Glow at a glance">
+   <div class="stat"><strong>01 / Listen</strong><span>Follows your system audio and the beat</span></div>
+   <div class="stat"><strong>02 / Personalize</strong><span>Album-art colors, rainbow or your own</span></div>
+   <div class="stat"><strong>03 / Tune</strong><span>Brightness, size, reaction, sensitivity and speed</span></div>
+  </section>
+  <!-- ===== Features ===== -->
+  <section class="features" id="features" aria-label="Glow features">
+   <div class="feature"><div class="ficon">♫</div><div><h3>Reacts to your audio</h3><p>Bass, mids and treble drive the light, with beat detection for the pulse.</p></div></div>
+   <div class="feature"><div class="ficon">◉</div><div><h3>Colors from your music</h3><p>Pull colors from the album cover, flow through rainbow, or pick two of your own.</p></div></div>
+   <div class="feature"><div class="ficon">⌁</div><div><h3>Make it yours</h3><p>Eleven styles, plus sliders for brightness, size, reaction, sensitivity and speed.</p></div></div>
+  </section>
+
+  <!-- ===== Scroll word sequence ===== -->
+  <section class="glow-scroll" aria-labelledby="glow-scroll-title">
+   <div class="scroll-intro">
+    <div class="scroll-kicker">A little more atmosphere</div>
+    <h2 id="glow-scroll-title">Your setup can feel different.</h2>
+    <p>Scroll through the little things Glow is made for.</p>
+   </div>
+   <div class="scroll-stage">
+    <h3 class="scroll-sticky">Make room<br>to <span>feel more.</span></h3>
+    <ul class="scroll-words" aria-label="Listen, play, focus, create, unwind, explore, customize, immerse, express, tune, discover, glow">
+     <li style="--i:0">listen.</li>
+     <li style="--i:1">play.</li>
+     <li style="--i:2">focus.</li>
+     <li style="--i:3">create.</li>
+     <li style="--i:4">unwind.</li>
+     <li style="--i:5">explore.</li>
+     <li style="--i:6">customize.</li>
+     <li style="--i:7">immerse.</li>
+     <li style="--i:8">express.</li>
+     <li style="--i:9">tune in.</li>
+     <li style="--i:10">discover.</li>
+     <li style="--i:11">glow.</li>
+    </ul>
+   </div>
+  </section>
+  <!-- ===== Showcase: real screenshot / video (appears only when glow-screenshot.png or glow-demo.mp4 exists) ===== -->
+  <section class="showcase" id="see-it" aria-label="Glow running on a real desktop" hidden>
+   <div class="section-head"><div class="eyebrow">The real thing</div><h2>See Glow on a real desktop.</h2><p>Actual footage and screenshots of Glow running on Windows.</p></div>
+   <figure class="showcase-frame">
+    <video id="showVideo" muted loop playsinline preload="metadata" poster="glow-screenshot.png" hidden><source src="glow-demo.mp4" type="video/mp4"></video>
+    <img id="showImg" src="glow-screenshot.png" alt="Screenshot of Glow's audio-reactive lighting around the edges of a Windows desktop" hidden>
+    <figcaption>Audio-reactive edge lighting, running live on Windows.</figcaption>
+   </figure>
+  </section>
+  <!-- ===== Interactive demo ===== -->
+  <section class="demo" id="demo">
+   <div class="section-head"><div class="eyebrow">Make it yours</div><h2>A glow that feels like you.</h2><p>Play with the settings below and preview different looks. This browser demo mirrors Glow's controls so you can preview the look.</p></div>
+   <div class="demo-card">
+    <div class="demo-stage"><div class="demo-screen" id="demoScreen"></div></div>
+    <div class="demo-controls">
+     <h3>Glow preview</h3><p>Adjust the look. Find your vibe.</p>
+     <div class="control"><div class="control-head"><label for="bright">Brightness</label><output id="brightOut">80%</output></div><input class="range" id="bright" type="range" min="10" max="100" value="80"></div>
+     <div class="control"><div class="control-head"><label for="size">Size</label><output id="sizeOut">50%</output></div><input class="range" id="size" type="range" min="10" max="100" value="50"></div>
+     <div class="control"><div class="control-head"><label for="reaction">Reaction</label><output id="reactionOut">60%</output></div><input class="range" id="reaction" type="range" min="0" max="100" value="60"></div>
+     <div class="control"><div class="control-head"><label for="sensitivity">Sensitivity</label><output id="sensitivityOut">50%</output></div><input class="range" id="sensitivity" type="range" min="1" max="100" value="50"></div>
+     <div class="control"><div class="control-head"><label for="speed">Speed</label><output id="speedOut">50%</output></div><input class="range" id="speed" type="range" min="0" max="100" value="50"></div>
+     <div class="control"><div class="control-head"><span>Choose a color</span><span id="colorName">Violet</span></div><div class="color-row" id="swatches">
+       <button class="swatch active" data-color="#875cff" aria-label="Violet" style="background:#875cff"></button>
+       <button class="swatch" data-color="#3985ff" aria-label="Blue" style="background:#3985ff"></button>
+       <button class="swatch" data-color="#46e5f5" aria-label="Cyan" style="background:#46e5f5"></button>
+       <button class="swatch" data-color="#ff55c8" aria-label="Pink" style="background:#ff55c8"></button>
+       <button class="swatch" data-color="#63f5a7" aria-label="Mint" style="background:#63f5a7"></button>
+       <input class="color-input" id="customColor" type="color" value="#875cff" aria-label="Pick a custom color" title="Pick a custom color"></div></div>
+     <div class="demo-note">This preview is visual only; it doesn't control the Windows app or play audio.</div>
+    </div>
+   </div>
+  </section>
+  <!-- ===== Styles ===== -->
+  <section class="styles" id="styles" aria-label="Glow styles">
+   <div class="section-head"><div class="eyebrow">Pick your look</div><h2>Eleven ways to light your screen.</h2><p>Switch styles any time from the Glow tab. Each one reacts to your music in its own way.</p></div>
+   <div class="pills pills-center"><span class="pill">Aurora</span><span class="pill">Northern lights</span><span class="pill">Ambient glow</span><span class="pill">Neon line</span><span class="pill">Comets</span><span class="pill">Corner bloom</span><span class="pill">Ripples</span><span class="pill">Equalizer</span><span class="pill">Spectrum edge</span><span class="pill">Stage beams</span><span class="pill">Embers</span></div>
+  </section>
+  <!-- ===== Now-playing screen ===== -->
+  <section class="ambient-strip nowplaying" id="now-playing" aria-label="Now-playing screen">
+   <div class="ambient-copy">
+    <div class="eyebrow">Now playing</div>
+    <h2>Let your music take over the screen.</h2>
+    <p>Glow can open a full-screen now-playing view with your album cover (in HD when Glow can find one), time-synced lyrics (when available) and a clock, surrounded by the same reactive light. Show it when your PC goes idle, or open it right away with a hotkey (Ctrl+Alt+N by default). If lyrics land a little early or late, nudge them with the Lyrics timing slider.</p>
+    <div class="pills"><span class="pill">Album cover</span><span class="pill">HD album art</span><span class="pill">Synced lyrics</span><span class="pill">Clock</span><span class="pill">Idle or on demand</span></div>
+   </div>
+   <div class="art-panel" aria-hidden="true"><div class="np-mock"><div class="np-cover"></div><div class="np-lines"><i></i><i></i><i></i><i></i></div></div></div>
+  </section>
+  <!-- ===== Detail cards ===== -->
+  <section class="details" aria-label="Made to fit your vibe">
+   <div class="section-head"><div class="eyebrow">Small details, big mood</div><h2>Your setup shouldn't look like everyone else's.</h2><p>Keep it subtle, turn up the color, or find the sweet spot that feels right for your space.</p></div>
+   <div class="detail-grid">
+    <article class="detail-card"><div class="detail-icon">◌</div><h3>From soft to vivid</h3><p>Dial in brightness, size and reaction to suit your desk, your screen, and the moment. Your settings are remembered, and one click resets them.</p></article>
+    <article class="detail-card"><div class="detail-icon">✳</div><h3>Color that fits your song</h3><p>Glow can lift colors from the album cover as each track changes, or you can use rainbow or two colors of your own.</p></article>
+    <article class="detail-card"><div class="detail-icon">♫</div><h3>Made for what you're playing</h3><p>Glow follows your PC's system audio, so it works with any app that makes sound. A beat delay keeps it in sync with Bluetooth headphones.</p></article>
+    <article class="detail-card"><div class="detail-icon">⌁</div><h3>There when you need it</h3><p>Start, stop or open the now-playing screen from the system tray or a global hotkey (Ctrl+Alt+G to start and stop by default).</p></article>
+   </div>
+  </section>
+  <!-- ===== Product idea quote ===== -->
+  <section class="testimonial" aria-label="Glow product philosophy"><div class="quote-mark">“</div><div><p>Sometimes the best upgrade isn't more pixels or more power. It's the feeling your setup gives you when you sit down.</p><small>THE IDEA BEHIND GLOW</small></div></section>
+  <!-- ===== How it works ===== -->
+  <section class="how" id="how">
+   <div class="section-head"><div class="eyebrow">Simple by design</div><h2>Three steps to a little more atmosphere.</h2><p>Glow is designed to stay out of your way while adding something special to your desktop.</p></div>
+   <div class="steps">
+    <article class="step"><div class="step-num">01 / START</div><h3>Launch Glow</h3><p>Open Glow and press Start, or use the tray icon or your hotkey, to turn on the screen-edge light.</p></article>
+    <article class="step"><div class="step-num">02 / PERSONALIZE</div><h3>Pick your look</h3><p>Choose a style and colors, then tune brightness, size, reaction, sensitivity and speed.</p></article>
+    <article class="step"><div class="step-num">03 / SET THE MOOD</div><h3>Play something</h3><p>Play music in any app. The light follows the audio, and the now-playing screen shows the cover and lyrics when you want it.</p></article>
+   </div>
+  </section>
+  <!-- ===== Requirements, refunds, support ===== -->
+  <section class="trust" id="trust" aria-label="Requirements, refunds and support">
+   <div class="trust-card"><h3>System requirements</h3><ul><li>Windows 10 or Windows 11</li><li>An audio output device. Glow listens to what your PC plays, not your microphone</li><li>Cover colors and lyrics need a player that shares track info with Windows media controls (most players and browsers do)</li><li>Internet is only needed for optional HD album art and lyrics</li><li>Lights your primary monitor</li></ul></div>
+   <div class="trust-card"><h3>Refunds</h3><p>If Glow doesn't work on your setup, email us and we'll sort it out or refund you. No hoops to jump through.</p></div>
+   <div class="trust-card"><h3>Support &amp; privacy</h3><p>Questions? Email <a href="mailto:YOUR_EMAIL@example.com">YOUR_EMAIL@example.com</a>. Audio is analyzed on your PC and never saved or sent anywhere. To fetch lyrics, Glow sends the current song's title, artist, album and length to LRCLIB. To fetch HD album art, it sends the title and artist to Apple's iTunes Search and, if needed, Deezer. You can turn HD album art off in the Display tab.</p></div>
+  </section>
+  <!-- ===== Download / buy ===== -->
+  <section class="download" id="download">
+   <div class="download-box"><div class="eyebrow"><span class="dot"></span> Available for Windows</div><h2>Your setup. Your atmosphere.</h2><div class="price">CA$6.99</div><p>One simple price for audio-reactive screen-edge lighting. Choose your colors, tune the response, and give your desktop a little atmosphere.</p><button class="btn btn-primary" id="downloadBtn">Get Glow for Windows · CA$6.99</button><div class="fine">Secure purchase/download link to be connected.</div></div>
+  </section>
+  <!-- ===== FAQ ===== -->
+  <section class="faq" id="faq">
+   <div class="section-head"><div class="eyebrow">Good to know</div><h2>Questions, answered.</h2></div>
+   <div class="faq-list">
+    <details><summary>What is Glow?</summary><p>Glow is a Windows app that lights the edges of your screen in time with your music. It follows your system audio and the beat, can take colors from your album art, and has an optional full-screen now-playing view with your cover, synced lyrics and a clock.</p></details>
+    <details><summary>Can I choose my own color?</summary><p>Yes. Choose Album art (colors come from the current cover), Rainbow, or Custom with two colors of your own.</p></details>
+    <details><summary>Can I adjust how it reacts?</summary><p>Yes. Sliders control brightness, size, reaction, sensitivity and speed. There's also a beat delay for Bluetooth headphones, and a frame rate setting that follows your monitor (up to 144 Hz) by default.</p></details>
+    <details><summary>What is the now-playing screen?</summary><p>A full-screen view with your album cover, synced lyrics and a clock, wrapped in the glow. Set it to appear when your PC is idle (after 30 seconds by default, only while music plays) or right away. Open or close it any time with Ctrl+Alt+N or from the tray. If it opened because you were idle, moving the mouse or pressing a key closes it; if you opened it yourself, press Esc or click.</p></details>
+    <details><summary>Which music apps work?</summary><p>The light works with anything your PC plays. Cover colors, the now-playing screen and lyrics use the track info your player shares with Windows, which most players and browsers do. If yours doesn't, the light still works.</p></details>
+    <details><summary>Does it work with Bluetooth headphones?</summary><p>Yes. Bluetooth audio arrives late, so raise Beat delay (up to 500 ms) until the glow lands on the beat you hear.</p></details>
+    <details><summary>Does Glow record my audio or use the internet?</summary><p>Audio is analyzed on your PC to drive the light and is never saved or sent anywhere. Lyrics and HD album art are the only online lookups. For lyrics, Glow sends the current song's title, artist, album and length to LRCLIB. For HD album art, it sends the title and artist to Apple's iTunes Search and, if needed, Deezer. Turn off HD album art in the Display tab to stop album-art lookups, and set the now-playing screen to Off (or to show only the album cover) to stop lyric lookups.</p></details>
+    <details><summary>Does it work on more than one monitor?</summary><p>Glow currently lights your primary monitor.</p></details>
+    <details><summary>How much does Glow cost?</summary><p>Glow is priced at CA$6.99.</p></details>
+    <details><summary>Where do I buy or download Glow?</summary><p>The purchase and installer link will need to be connected to your chosen checkout or download host before customers can complete their purchase.</p></details>
+    <details><summary>Windows shows a "protected your PC" (SmartScreen) message. Is Glow safe?</summary><p>New independent apps often trigger this prompt the first time they're run, because Windows hasn't seen them used widely yet. If you downloaded Glow from this site, choose <strong>More info</strong>, then <strong>Run anyway</strong>. Only do this for files you got directly from us.</p></details>
+    <details><summary>What do I need to run Glow?</summary><p>A PC running Windows 10 or Windows 11 and an audio output device. A GPU helps the now-playing screen run smoothly, and Glow can prefer your NVIDIA GPU if you have one.</p></details>
+    <details><summary>What if it doesn't work for me?</summary><p>Email us at <a href="mailto:YOUR_EMAIL@example.com">YOUR_EMAIL@example.com</a>. We'll help you get it running, or refund you if we can't.</p></details>
+   </div>
+  </section>
+ </div>
+</main>
+<!-- ===== Footer ===== -->
+<footer><div class="wrap foot"><a class="brand" href="#top"><span class="logo"></span>GLOW</a><span>Ambient lighting for Windows.</span><div class="footlinks"><a href="#features">Features</a><a href="#faq">FAQ</a><a href="#trust">Requirements &amp; refunds</a><a href="mailto:YOUR_EMAIL@example.com">Support</a><a href="#top">Back to top ↑</a></div><span>© <span id="year"></span> Glow</span></div></footer>
+<!-- ===== Purchase notice (modal) ===== -->
+<div class="notice" id="notice" role="dialog" aria-modal="true" aria-labelledby="noticeTitle"><div class="modal"><h3 id="noticeTitle">Glow · CA$6.99</h3><p>The price and launch messaging are set. To make this button complete a real purchase and deliver the Windows app, connect your checkout page or installer URL.</p><button class="btn btn-primary" id="closeNotice">Got it</button></div></div>
+<script>
+/* ======================================================================
+   SITE BEHAVIOUR
+   1. Demo panel      4. Reveal on scroll
+   2. Mobile menu     5. Showcase media (screenshot / video)
+   3. Buy-notice modal
+   ====================================================================== */
+const $ = id => document.getElementById(id);
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- 1. Demo panel: sliders + colour swatches drive CSS variables ---------- */
+function initDemo() {
+  const demoScreen = $('demoScreen');
+  const sliders = ['bright', 'size', 'reaction', 'sensitivity', 'speed'];
+  const colorNames = {
+    '#875cff': 'Violet', '#3985ff': 'Blue', '#46e5f5': 'Cyan',
+    '#ff55c8': 'Pink',   '#63f5a7': 'Mint'
+  };
+
+  function updateSliders() {
+    const bright = +$('bright').value;
+    const size = +$('size').value;
+    const reaction = +$('reaction').value;
+    const sensitivity = +$('sensitivity').value;
+    const speed = +$('speed').value;
+
+    demoScreen.style.setProperty('--glow', (5 + size * 0.384) + 'px');
+    const base = 0.35 + reaction / 180 + sensitivity / 300;   // the app's default settings keep the original look
+    demoScreen.style.setProperty('--pulse', (7 - speed * 0.055).toFixed(2) + 's');         // faster speed = quicker pulse
+    demoScreen.style.setProperty('--pulse-state', speed === 0 ? 'paused' : 'running');     // speed 0 = frozen, like the app
+    demoScreen.style.setProperty('--opacity', Math.min(1, base * (0.5 + bright / 160)).toFixed(2));
+
+    $('brightOut').textContent = bright + '%';
+    $('sizeOut').textContent = size + '%';
+    $('reactionOut').textContent = reaction + '%';
+    $('sensitivityOut').textContent = sensitivity + '%';
+    $('speedOut').textContent = speed + '%';
+  }
+
+  function setColor(color) {
+    const key = color.toLowerCase();
+    demoScreen.style.setProperty('--demo-color', color);
+    $('customColor').value = color;
+    $('colorName').textContent = colorNames[key] || 'Custom';
+    document.querySelectorAll('.swatch').forEach(swatch =>
+      swatch.classList.toggle('active', swatch.dataset.color.toLowerCase() === key));
+  }
+
+  sliders.forEach(id => $(id).addEventListener('input', updateSliders));
+  document.querySelectorAll('.swatch').forEach(swatch =>
+    swatch.addEventListener('click', () => setColor(swatch.dataset.color)));
+  $('customColor').addEventListener('input', e => setColor(e.target.value));
+  updateSliders();
+}
+
+/* ---------- 2. Mobile menu ---------- */
+function initMenu() {
+  const links = $('navlinks');
+  $('menu').addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => links.classList.remove('open')));
+}
+
+/* ---------- 3. Buy-notice modal (replace with your real checkout link when ready) ---------- */
+function initNotice() {
+  const notice = $('notice');
+  $('downloadBtn').addEventListener('click', () => notice.classList.add('open'));
+  $('closeNotice').addEventListener('click', () => notice.classList.remove('open'));
+  notice.addEventListener('click', e => { if (e.target === notice) notice.classList.remove('open'); });
+}
+
+/* ---------- 4. Reveal sections as they scroll into view ---------- */
+function initReveal() {
+  document.documentElement.classList.add('js-reveal');
+
+  const targets = document.querySelectorAll(
+    'section:not(.glow-scroll), .feature, .step, .detail-card, .stat, .testimonial, .download-box');
+  const staggered = ['feature', 'step', 'detail-card', 'stat'];
+
+  targets.forEach((el, i) => {
+    el.classList.add('reveal');
+    if (staggered.some(cls => el.classList.contains(cls))) el.dataset.delay = String((i % 4) + 1);
+  });
+
+  if (!('IntersectionObserver' in window) || prefersReducedMotion) {
+    targets.forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      obs.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -45px 0px' });
+  targets.forEach(el => observer.observe(el));
+}
+
+/* ---------- 5. Showcase: appears only if glow-screenshot.png / glow-demo.mp4 exist ---------- */
+function initShowcase() {
+  const section = $('see-it'), img = $('showImg'), video = $('showVideo');
+  if (!section || !img || !video) return;
+
+  const showImage = () => { if (video.hidden) img.hidden = false; section.hidden = false; };
+
+  video.addEventListener('loadeddata', () => {
+    video.hidden = false;
+    img.hidden = true;
+    section.hidden = false;
+    if ('IntersectionObserver' in window && !prefersReducedMotion) {
+      video.autoplay = true;   // play only while on screen
+      new IntersectionObserver(entries => entries.forEach(e =>
+        e.isIntersecting ? video.play().catch(() => {}) : video.pause()), { threshold: 0.35 }).observe(video);
+    } else {
+      video.controls = true;
+    }
+  });
+  img.addEventListener('load', showImage);
+  if (img.complete && img.naturalWidth) showImage();
+}
+
+$('year').textContent = new Date().getFullYear();
+initDemo();
+initMenu();
+initNotice();
+initReveal();
+initShowcase();
+</script>
+
+<script type="module">
+/* Cinematic background adaptation: no bronze statue, just Glow's liquid neon palette. */
+import * as THREE from 'three';
+
+const canvas = document.querySelector('#glow-atmosphere');
+const progressFill = document.querySelector('#glowProgressFill');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let renderer, scene, camera, material, particles, particleData = [];
+let rafId = 0, lastScroll = 0, smoothScroll = 0, mouseX = 0, mouseY = 0, targetMouseX = 0, targetMouseY = 0;
+const clock = new THREE.Clock();
+const uniforms = {
+  uTime: { value: 0 },
+  uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+  uMouse: { value: new THREE.Vector2(0, 0) },
+  uScroll: { value: 0 }
+};
+
+function makeLiquidBackground() {
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.set(0, 0, 0);
+  scene.add(camera);
+
+  const vertexShader = `
+    varying vec2 vUv;
+    void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }
+  `;
+  const fragmentShader = `
+    varying vec2 vUv;
+    uniform float uTime;
+    uniform vec2 uResolution;
+    uniform vec2 uMouse;
+    uniform float uScroll;
+    float hash(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }
+    float noise(vec2 p){
+      vec2 i=floor(p), f=fract(p); f=f*f*(3.0-2.0*f);
+      return mix(mix(hash(i),hash(i+vec2(1.0,0.0)),f.x),
+                 mix(hash(i+vec2(0.0,1.0)),hash(i+vec2(1.0,1.0)),f.x),f.y);
+    }
+    void main(){
+      vec2 uv=(gl_FragCoord.xy-.5*uResolution.xy)/uResolution.y;
+      float t=uTime*.10, s=uScroll;
+      float deform=s*4.5;
+      vec2 p=uv;
+      p.x+=sin(uv.y*2.5+t*.2+deform)*.32;
+      p.y+=cos(uv.x*2.25-t*.17-deform*.7)*.3;
+      p.x+=sin(uv.y*1.1-t*.13-deform*1.2)*.22;
+      p.y+=cos(uv.x*1.25+t*.15+deform)*.2;
+      p+=vec2(s*.035,-s*.018)+vec2(uMouse.x*.045,uMouse.y*.04);
+      float a=.62, b=-.72, c=1.18;
+      vec2 d1=vec2(cos(a),sin(a)),d2=vec2(cos(b),sin(b)),d3=vec2(cos(c),sin(c));
+      float w1=sin(dot(p,d1)*2.5+t);
+      float w2=cos(dot(p,d2)*3.3-t*1.3+w1*.38);
+      float w3=sin(dot(p,d3)*4.1+t*1.6+w2*.45);
+      float field=w1*.5+w2*.34+w3*.16;
+      float satin=pow(max(0.0,1.0-abs(field-.08)),3.0);
+      float spec=pow(max(0.0,1.0-abs(field-.13)),9.0);
+      float crest=satin*.22+spec*.72;
+      vec3 shadow0=vec3(.002,.0015,.006), wave10=vec3(.028,.012,.07), wave20=vec3(.012,.006,.034), crest0=vec3(.22,.09,.52);
+      vec3 shadow1=vec3(.001,.004,.008), wave11=vec3(.006,.035,.065), wave21=vec3(.003,.016,.04), crest1=vec3(.08,.45,.58);
+      float blend=smoothstep(.04,.98,s);
+      vec3 sh=mix(shadow0,shadow1,blend), wa=mix(wave10,wave11,blend), wb=mix(wave20,wave21,blend), cr=mix(crest0,crest1,blend);
+      vec3 col=sh;
+      col=mix(col,wb,smoothstep(-.62,.22,field));
+      col=mix(col,wa,smoothstep(.04,.82,field));
+      col+=cr*crest*1.35;
+      float grain=(noise(uv*110.0+t*.08)-.5)*.008;
+      float vignette=1.0-dot(uv,uv)*.18;
+      col=max(vec3(0.0),(col+grain)*vignette);
+      gl_FragColor=vec4(col,1.0);
+    }
+  `;
+  material = new THREE.ShaderMaterial({
+    vertexShader, fragmentShader, uniforms,
+    depthWrite:false, depthTest:false
+  });
+  const plane = new THREE.Mesh(new THREE.PlaneGeometry(18, 12), material);
+  plane.position.set(0, 0, -8);
+  plane.renderOrder = -10;
+  camera.add(plane);
+
+  renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:false, powerPreference:'high-performance'});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.7));
+  renderer.setSize(window.innerWidth, window.innerHeight, false);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.35;
+  scene.background = new THREE.Color('#080911');
+
+  const count = window.innerWidth < 620 ? 120 : 230;
+  const positions = new Float32Array(count*3), colors = new Float32Array(count*3);
+  for(let i=0;i<count;i++){
+    positions[i*3]=(Math.random()-.5)*11;
+    positions[i*3+1]=(Math.random()-.5)*7;
+    positions[i*3+2]=(Math.random()-.5)*3;
+    const cyan=Math.random()>.58;
+    colors[i*3]=cyan?.24:.56;
+    colors[i*3+1]=cyan?.82:.35;
+    colors[i*3+2]=cyan?1:.98;
+    particleData.push({speed:.08+Math.random()*.22,phase:Math.random()*Math.PI*2,drift:(Math.random()-.5)*.16});
+  }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position',new THREE.BufferAttribute(positions,3));
+  geometry.setAttribute('color',new THREE.BufferAttribute(colors,3));
+  const points = new THREE.PointsMaterial({size:.018,vertexColors:true,transparent:true,opacity:.5,blending:THREE.AdditiveBlending,depthWrite:false});
+  particles = new THREE.Points(geometry,points);
+  scene.add(particles);
+}
+
+function onResize(){
+  if(!renderer||!camera)return;
+  camera.aspect=window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth,window.innerHeight,false);
+  uniforms.uResolution.value.set(window.innerWidth,window.innerHeight);
+}
+function onPointerMove(e){
+  targetMouseX=(e.clientX/window.innerWidth)*2-1;
+  targetMouseY=(e.clientY/window.innerHeight)*2-1;
+}
+function animateGlow(){
+  rafId=requestAnimationFrame(animateGlow);
+  const dt=Math.min(clock.getDelta(),.05);
+  const maxScroll=Math.max(1,document.documentElement.scrollHeight-window.innerHeight);
+  const scroll=Math.min(1,Math.max(0,window.scrollY/maxScroll));
+  smoothScroll += (scroll-smoothScroll)*(reduceMotion ? 0.16 : 0.035);
+  mouseX+=(targetMouseX-mouseX)*.045;
+  mouseY+=(targetMouseY-mouseY)*.045;
+  uniforms.uTime.value=reduceMotion?0:clock.elapsedTime;
+  uniforms.uScroll.value=smoothScroll;
+  uniforms.uMouse.value.set(mouseX,-mouseY);
+  if(progressFill)progressFill.style.width=(scroll*100).toFixed(2)+'%';
+  if(particles&&!reduceMotion){
+    const pos=particles.geometry.attributes.position.array;
+    const velocity=Math.abs(scroll-lastScroll);
+    for(let i=0;i<particleData.length;i++){
+      const d=particleData[i], k=i*3;
+      pos[k+1]+=d.speed*dt*(1+velocity*120);
+      pos[k]+=Math.sin(clock.elapsedTime*.55+d.phase)*d.drift*dt;
+      if(pos[k+1]>4.1){pos[k+1]=-3.8;pos[k]=(Math.random()-.5)*8;}
+    }
+    particles.geometry.attributes.position.needsUpdate=true;
+  }
+  lastScroll=scroll;
+  renderer.render(scene,camera);
+}
+try {
+  makeLiquidBackground();
+  window.addEventListener('resize',onResize,{passive:true});
+  window.addEventListener('pointermove',onPointerMove,{passive:true});
+  if(!reduceMotion)animateGlow(); else { renderer.render(scene,camera); }
+} catch(error) {
+  console.warn('Glow atmosphere could not initialize; the CSS background remains available.',error);
+  canvas.style.display='none';
+}
+</script>
+
+
+<script>
+(() => {
+  const cursor = document.getElementById('glow-cursor');
+  const label = document.getElementById('glowCursorLabel');
+  if (!cursor || !label || !window.matchMedia('(hover:hover) and (pointer:fine) and (min-width: 621px)').matches) return;
+  document.body.classList.add('glow-cursor-on');
+  let x=-100, y=-100, tx=-100, ty=-100, raf=0, scrollTimer;
+  const move = () => {
+    x += (tx-x)*0.24; y += (ty-y)*0.24;
+    cursor.style.transform = `translate3d(${x}px,${y}px,0)`;
+    raf = requestAnimationFrame(move);
+  };
+  move();
+  window.addEventListener('pointermove', e => {
+    if (e.pointerType && e.pointerType !== 'mouse') { document.body.classList.remove('glow-cursor-on'); cursor.classList.remove('is-visible'); return; }
+    document.body.classList.add('glow-cursor-on');
+    tx=e.clientX; ty=e.clientY; cursor.classList.add('is-visible');
+    const target=e.target.closest('a,button,summary,[role="button"],input[type="range"],input[type="color"]');
+    if(target){
+      cursor.classList.add('is-active'); cursor.classList.remove('is-scroll');
+      label.textContent = target.matches('.btn-primary') ? "LET'S GO" : (target.matches('input[type="range"]') || target.matches('input[type="color"]') ? 'ADJUST' : 'CLICK');
+    } else { cursor.classList.remove('is-active'); if(!cursor.classList.contains('is-scroll')) label.textContent='MOVE'; }
+  }, {passive:true});
+  window.addEventListener('pointerleave', () => cursor.classList.remove('is-visible'), {passive:true});
+  window.addEventListener('pointerenter', () => cursor.classList.add('is-visible'), {passive:true});
+  window.addEventListener('wheel', () => {
+    cursor.classList.add('is-scroll'); label.textContent='SCROLL'; clearTimeout(scrollTimer);
+    scrollTimer=setTimeout(() => { cursor.classList.remove('is-scroll'); label.textContent='MOVE'; }, 650);
+  }, {passive:true});
+  window.addEventListener('keydown', e => { if (e.key === 'Tab') cursor.classList.remove('is-visible'); });
+  window.addEventListener('blur', () => cursor.classList.remove('is-visible'));
+  document.addEventListener('visibilitychange', () => { if(document.hidden) cursor.classList.remove('is-visible'); });
+})();
+</script>
+</body>
+</html>
