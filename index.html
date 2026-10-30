@@ -1198,22 +1198,30 @@ button,
 .js-reveal .reveal[data-delay="3"] {
   transition-delay: .24s;
 }
+.trust-card,
+.testimonial,
+.demo-card,
+.download-box {
+  transition: transform .35s var(--motion-ease),border-color .35s ease,box-shadow .35s ease;
+}
 .feature:hover,
 .step:hover,
 .detail-card:hover,
-.stat:hover {
+.stat:hover,
+.trust-card:hover,
+.testimonial:hover,
+.demo-card:hover,
+.download-box:hover {
   transform: translateY(-4px);
-  border-color: #9276ff66;
-  box-shadow: 0 14px 40px #0002;
+  border-color: #9276ff88;
+  animation: cardGlow 3.6s ease-in-out infinite;
+}
+@keyframes cardGlow {
+  0%,100% { box-shadow: 0 10px 28px #8b5cff25,0 0 0 1px #8b5cff45; }
+  50% { box-shadow: 0 12px 34px #46e5f52a,0 0 0 1px #46e5f56b; }
 }
 .demo-screen:before {
   transition: box-shadow .25s ease,opacity .25s ease;
-  animation: demoPulse var(--pulse,4.25s) ease-in-out infinite alternate;
-  animation-play-state: var(--pulse-state,running);
-}
-@keyframes demoPulse {
-  from { filter: hue-rotate(-12deg) brightness(.9); }
-  to   { filter: hue-rotate(14deg) brightness(1.08); }
 }
 ::selection {
   background: #8b5cff66;
@@ -1306,22 +1314,33 @@ button,
   background-clip: text;
   color: transparent;
 }
-@supports (animation-timeline: view()) and (animation-range: cover 0% 100%) {
+@supports (animation-timeline: view()) {
   .glow-scroll .scroll-words li {
-    animation: glowWordFocus linear both;
+    animation-name: glowWordFocus;
+    animation-duration: auto;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
     animation-timeline: view();
-    animation-range: cover calc(50% - .7lh) calc(50% + .7lh);
+    animation-range: cover 42% 58%;
   }
   @keyframes glowWordFocus {
     0%,100% {
       opacity: .24;
       filter: brightness(.85);
+      transform: scale(.985);
     }
     50% {
       opacity: 1;
       filter: brightness(1.3);
+      transform: scale(1.035);
     }
   }
+}
+.glow-scroll .scroll-words li.is-active {
+  opacity: 1;
+  filter: brightness(1.3);
+  transform: scale(1.035);
+  text-shadow: 0 0 28px #a997ff66;
 }
 @media (max-width: 620px) {
   .glow-scroll {
@@ -1728,6 +1747,40 @@ select:focus-visible {
 }
 
 /* ======================================================================
+   SECTION RHYTHM — distinct surfaces, same content and layout
+   ====================================================================== */
+main > .wrap > section.stats,
+main > .wrap > section.features,
+main > .wrap > section.demo,
+main > .wrap > section.styles,
+main > .wrap > section.details,
+main > .wrap > section.how,
+main > .wrap > section.trust,
+main > .wrap > section.download,
+main > .wrap > section.faq {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(24px,4vw,42px);
+  margin: 0 0 clamp(64px,7vw,88px);
+  border: 1px solid #ffffff14;
+  border-radius: 26px;
+  box-shadow: inset 0 1px 0 #ffffff0b,0 18px 70px #0002;
+}
+main > .wrap > section.stats,
+main > .wrap > section.demo,
+main > .wrap > section.details,
+main > .wrap > section.download {
+  background: linear-gradient(145deg,#17152aee,#0c0e18f5 68%);
+}
+main > .wrap > section.features,
+main > .wrap > section.styles,
+main > .wrap > section.how,
+main > .wrap > section.trust,
+main > .wrap > section.faq {
+  background: linear-gradient(145deg,#101b26ee,#0c0e18f5 68%);
+}
+
+/* ======================================================================
    REDUCED MOTION  (all prefers-reduced-motion overrides in one place)
    ====================================================================== */
 @media (prefers-reduced-motion: reduce) {
@@ -1852,7 +1905,7 @@ select:focus-visible {
   <section class="stats" aria-label="Glow at a glance">
    <div class="stat"><strong>01 / Listen</strong><span>Follows your system audio and the beat</span></div>
    <div class="stat"><strong>02 / Personalize</strong><span>Album-art colors, rainbow or your own</span></div>
-   <div class="stat"><strong>03 / Tune</strong><span>Brightness, size, reaction, sensitivity and speed</span></div>
+   <div class="stat"><strong>03 / Tune</strong><span>Brightness, size, reaction and speed</span></div>
   </section>
   <!-- ===== Features ===== -->
   <section class="features" id="features" aria-label="Glow features">
@@ -1903,10 +1956,9 @@ select:focus-visible {
     <div class="demo-controls">
      <h3>Glow preview</h3><p>Adjust the look. Find your vibe.</p>
      <div class="control"><div class="control-head"><label for="bright">Brightness</label><output id="brightOut">80%</output></div><input class="range" id="bright" type="range" min="10" max="100" value="80"></div>
-     <div class="control"><div class="control-head"><label for="size">Size</label><output id="sizeOut">50%</output></div><input class="range" id="size" type="range" min="10" max="100" value="50"></div>
-     <div class="control"><div class="control-head"><label for="reaction">Reaction</label><output id="reactionOut">60%</output></div><input class="range" id="reaction" type="range" min="0" max="100" value="60"></div>
-     <div class="control"><div class="control-head"><label for="sensitivity">Sensitivity</label><output id="sensitivityOut">50%</output></div><input class="range" id="sensitivity" type="range" min="1" max="100" value="50"></div>
-     <div class="control"><div class="control-head"><label for="speed">Speed</label><output id="speedOut">50%</output></div><input class="range" id="speed" type="range" min="0" max="100" value="50"></div>
+     <div class="control"><div class="control-head"><label for="size">Size</label><output id="sizeOut">40%</output></div><input class="range" id="size" type="range" min="10" max="100" value="40"></div>
+     <div class="control"><div class="control-head"><label for="reaction">Reaction</label><output id="reactionOut">55%</output></div><input class="range" id="reaction" type="range" min="0" max="100" value="55"></div>
+     <div class="control"><div class="control-head"><label for="sensitivity">Sensitivity</label><output id="sensitivityOut">35%</output></div><input class="range" id="sensitivity" type="range" min="1" max="100" value="35"></div>
      <div class="control"><div class="control-head"><span>Choose a color</span><span id="colorName">Violet</span></div><div class="color-row" id="swatches">
        <button class="swatch active" data-color="#875cff" aria-label="Violet" style="background:#875cff"></button>
        <button class="swatch" data-color="#3985ff" aria-label="Blue" style="background:#3985ff"></button>
@@ -1928,8 +1980,8 @@ select:focus-visible {
    <div class="ambient-copy">
     <div class="eyebrow">Now playing</div>
     <h2>Let your music take over the screen.</h2>
-    <p>Glow can open a full-screen now-playing view with your album cover (in HD when Glow can find one), time-synced lyrics (when available) and a clock, surrounded by the same reactive light. Show it when your PC goes idle, or open it right away with a hotkey (Ctrl+Alt+N by default). If lyrics land a little early or late, nudge them with the Lyrics timing slider.</p>
-    <div class="pills"><span class="pill">Album cover</span><span class="pill">HD album art</span><span class="pill">Synced lyrics</span><span class="pill">Clock</span><span class="pill">Idle or on demand</span></div>
+    <p>Glow can open a full-screen now-playing view with your album cover, time-synced lyrics (when available) and a clock, surrounded by the same reactive light. Show it when your PC goes idle, or open it right away with a hotkey (Ctrl+Alt+N by default).</p>
+    <div class="pills"><span class="pill">Album cover</span><span class="pill">Synced lyrics</span><span class="pill">Clock</span><span class="pill">Idle or on demand</span></div>
    </div>
    <div class="art-panel" aria-hidden="true"><div class="np-mock"><div class="np-cover"></div><div class="np-lines"><i></i><i></i><i></i><i></i></div></div></div>
   </section>
@@ -1937,7 +1989,7 @@ select:focus-visible {
   <section class="details" aria-label="Made to fit your vibe">
    <div class="section-head"><div class="eyebrow">Small details, big mood</div><h2>Your setup shouldn't look like everyone else's.</h2><p>Keep it subtle, turn up the color, or find the sweet spot that feels right for your space.</p></div>
    <div class="detail-grid">
-    <article class="detail-card"><div class="detail-icon">◌</div><h3>From soft to vivid</h3><p>Dial in brightness, size and reaction to suit your desk, your screen, and the moment. Your settings are remembered, and one click resets them.</p></article>
+    <article class="detail-card"><div class="detail-icon">◌</div><h3>From soft to vivid</h3><p>Dial in brightness, size and reaction to suit your desk, your screen, and the moment.</p></article>
     <article class="detail-card"><div class="detail-icon">✳</div><h3>Color that fits your song</h3><p>Glow can lift colors from the album cover as each track changes, or you can use rainbow or two colors of your own.</p></article>
     <article class="detail-card"><div class="detail-icon">♫</div><h3>Made for what you're playing</h3><p>Glow follows your PC's system audio, so it works with any app that makes sound. A beat delay keeps it in sync with Bluetooth headphones.</p></article>
     <article class="detail-card"><div class="detail-icon">⌁</div><h3>There when you need it</h3><p>Start, stop or open the now-playing screen from the system tray or a global hotkey (Ctrl+Alt+G to start and stop by default).</p></article>
@@ -1958,7 +2010,7 @@ select:focus-visible {
   <section class="trust" id="trust" aria-label="Requirements, refunds and support">
    <div class="trust-card"><h3>System requirements</h3><ul><li>Windows 10 or Windows 11</li><li>An audio output device. Glow listens to what your PC plays, not your microphone</li><li>Cover colors and lyrics need a player that shares track info with Windows media controls (most players and browsers do)</li><li>Internet is only needed for optional HD album art and lyrics</li><li>Lights your primary monitor</li></ul></div>
    <div class="trust-card"><h3>Refunds</h3><p>If Glow doesn't work on your setup, email us and we'll sort it out or refund you. No hoops to jump through.</p></div>
-   <div class="trust-card"><h3>Support &amp; privacy</h3><p>Questions? Email <a href="mailto:YOUR_EMAIL@example.com">YOUR_EMAIL@example.com</a>. Audio is analyzed on your PC and never saved or sent anywhere. To fetch lyrics, Glow sends the current song's title, artist, album and length to LRCLIB. To fetch HD album art, it sends the title and artist to Apple's iTunes Search and, if needed, Deezer. You can turn HD album art off in the Display tab.</p></div>
+   <div class="trust-card"><h3>Support &amp; privacy</h3><p>Questions? Email <a href="mailto:YOUR_EMAIL@example.com">YOUR_EMAIL@example.com</a>. Audio is analyzed on your PC and never saved or sent anywhere. To fetch lyrics and HD album art, Glow looks up the current song's title and artist on LRCLIB, Apple's iTunes Search and Deezer. You can turn HD art off in settings.</p></div>
   </section>
   <!-- ===== Download / buy ===== -->
   <section class="download" id="download">
@@ -1971,10 +2023,10 @@ select:focus-visible {
     <details><summary>What is Glow?</summary><p>Glow is a Windows app that lights the edges of your screen in time with your music. It follows your system audio and the beat, can take colors from your album art, and has an optional full-screen now-playing view with your cover, synced lyrics and a clock.</p></details>
     <details><summary>Can I choose my own color?</summary><p>Yes. Choose Album art (colors come from the current cover), Rainbow, or Custom with two colors of your own.</p></details>
     <details><summary>Can I adjust how it reacts?</summary><p>Yes. Sliders control brightness, size, reaction, sensitivity and speed. There's also a beat delay for Bluetooth headphones, and a frame rate setting that follows your monitor (up to 144 Hz) by default.</p></details>
-    <details><summary>What is the now-playing screen?</summary><p>A full-screen view with your album cover, synced lyrics and a clock, wrapped in the glow. Set it to appear when your PC is idle (after 30 seconds by default, only while music plays) or right away. Open or close it any time with Ctrl+Alt+N or from the tray. If it opened because you were idle, moving the mouse or pressing a key closes it; if you opened it yourself, press Esc or click.</p></details>
+    <details><summary>What is the now-playing screen?</summary><p>A full-screen view with your album cover, synced lyrics and a clock, wrapped in the glow. Set it to appear when your PC is idle (after 30 seconds by default, only while music plays) or right away. Open or close it any time with Ctrl+Alt+N or from the tray. Esc or a click closes it.</p></details>
     <details><summary>Which music apps work?</summary><p>The light works with anything your PC plays. Cover colors, the now-playing screen and lyrics use the track info your player shares with Windows, which most players and browsers do. If yours doesn't, the light still works.</p></details>
     <details><summary>Does it work with Bluetooth headphones?</summary><p>Yes. Bluetooth audio arrives late, so raise Beat delay (up to 500 ms) until the glow lands on the beat you hear.</p></details>
-    <details><summary>Does Glow record my audio or use the internet?</summary><p>Audio is analyzed on your PC to drive the light and is never saved or sent anywhere. Lyrics and HD album art are the only online lookups. For lyrics, Glow sends the current song's title, artist, album and length to LRCLIB. For HD album art, it sends the title and artist to Apple's iTunes Search and, if needed, Deezer. Turn off HD album art in the Display tab to stop album-art lookups, and set the now-playing screen to Off (or to show only the album cover) to stop lyric lookups.</p></details>
+    <details><summary>Does Glow record my audio or use the internet?</summary><p>Audio is analyzed on your PC to drive the light and is never saved or sent anywhere. Lyrics and HD album art are the only online lookups: Glow sends the current song's title and artist to LRCLIB (lyrics), and to Apple's iTunes Search and Deezer (album art). Turn off HD album art in the Display tab, or set the now-playing screen to show only the album cover, to skip lookups.</p></details>
     <details><summary>Does it work on more than one monitor?</summary><p>Glow currently lights your primary monitor.</p></details>
     <details><summary>How much does Glow cost?</summary><p>Glow is priced at CA$6.99.</p></details>
     <details><summary>Where do I buy or download Glow?</summary><p>The purchase and installer link will need to be connected to your chosen checkout or download host before customers can complete their purchase.</p></details>
@@ -2002,7 +2054,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 /* ---------- 1. Demo panel: sliders + colour swatches drive CSS variables ---------- */
 function initDemo() {
   const demoScreen = $('demoScreen');
-  const sliders = ['bright', 'size', 'reaction', 'sensitivity', 'speed'];
+  const sliders = ['bright', 'size', 'reaction', 'sensitivity'];
   const colorNames = {
     '#875cff': 'Violet', '#3985ff': 'Blue', '#46e5f5': 'Cyan',
     '#ff55c8': 'Pink',   '#63f5a7': 'Mint'
@@ -2013,19 +2065,15 @@ function initDemo() {
     const size = +$('size').value;
     const reaction = +$('reaction').value;
     const sensitivity = +$('sensitivity').value;
-    const speed = +$('speed').value;
 
-    demoScreen.style.setProperty('--glow', (5 + size * 0.384) + 'px');
-    const base = 0.35 + reaction / 180 + sensitivity / 300;   // the app's default settings keep the original look
-    demoScreen.style.setProperty('--pulse', (7 - speed * 0.055).toFixed(2) + 's');         // faster speed = quicker pulse
-    demoScreen.style.setProperty('--pulse-state', speed === 0 ? 'paused' : 'running');     // speed 0 = frozen, like the app
+    demoScreen.style.setProperty('--glow', (5 + size * 0.48) + 'px');
+    const base = 0.35 + reaction / 160 + sensitivity / 250;   // 80% brightness keeps the original look
     demoScreen.style.setProperty('--opacity', Math.min(1, base * (0.5 + bright / 160)).toFixed(2));
 
     $('brightOut').textContent = bright + '%';
     $('sizeOut').textContent = size + '%';
     $('reactionOut').textContent = reaction + '%';
     $('sensitivityOut').textContent = sensitivity + '%';
-    $('speedOut').textContent = speed + '%';
   }
 
   function setColor(color) {
@@ -2058,6 +2106,34 @@ function initNotice() {
   $('downloadBtn').addEventListener('click', () => notice.classList.add('open'));
   $('closeNotice').addEventListener('click', () => notice.classList.remove('open'));
   notice.addEventListener('click', e => { if (e.target === notice) notice.classList.remove('open'); });
+}
+
+/* ---------- Scroll-word focus fallback for reduced-motion/older browsers ---------- */
+function initScrollWordSequence() {
+  const words = [...document.querySelectorAll('.glow-scroll .scroll-words li')];
+  if (!words.length || (!prefersReducedMotion && CSS.supports('animation-timeline: view()'))) return;
+  let observer;
+  const watchCenterWord = () => {
+    if (observer) observer.disconnect();
+    const inset = Math.max(0, Math.round((window.innerHeight - 6) / 2));
+    observer = new IntersectionObserver(entries => {
+      const visible = entries.filter(entry => entry.isIntersecting);
+      if (!visible.length) return;
+      const center = window.innerHeight / 2;
+      const active = visible.reduce((best, entry) =>
+        Math.abs(entry.boundingClientRect.top + entry.boundingClientRect.height / 2 - center) <
+        Math.abs(best.boundingClientRect.top + best.boundingClientRect.height / 2 - center) ? entry : best);
+      words.forEach(word => {
+        const selected = word === active.target;
+        word.classList.toggle('is-active', selected);
+        if (selected) word.setAttribute('aria-current', 'true');
+        else word.removeAttribute('aria-current');
+      });
+    }, { rootMargin: `-${inset}px 0px -${inset}px 0px`, threshold: 0 });
+    words.forEach(word => observer.observe(word));
+  };
+  watchCenterWord();
+  window.addEventListener('resize', watchCenterWord, { passive: true });
 }
 
 /* ---------- 4. Reveal sections as they scroll into view ---------- */
@@ -2114,6 +2190,7 @@ $('year').textContent = new Date().getFullYear();
 initDemo();
 initMenu();
 initNotice();
+initScrollWordSequence();
 initReveal();
 initShowcase();
 </script>
