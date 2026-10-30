@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - "index.html"
+      - "robots.txt"
+      - "sitemap.xml"
       - ".github/workflows/publish-pages.yml"
   workflow_dispatch:
 
