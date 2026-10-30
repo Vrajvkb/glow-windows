@@ -1827,6 +1827,16 @@ main > .wrap > section.faq {
     transition: none!important;
   }
 }
+
+/* Private feedback */
+.feedback{padding:clamp(4.5rem,8vw,7rem) 0;border-top:1px solid var(--line);background:linear-gradient(180deg,rgba(16,18,31,.35),rgba(8,9,17,0))}
+.feedback .section-head{max-width:760px;margin:0 auto 30px;text-align:center}
+.feedback .section-head p{max-width:620px;margin:14px auto 0;color:var(--muted)}
+.feedback-card{max-width:840px;margin:0 auto;padding:10px;border:1px solid var(--line);border-radius:20px;background:#fff;overflow:hidden}
+.feedback-card iframe{display:block;width:100%;height:850px;border:0;border-radius:12px;background:#fff}
+.feedback-note{max-width:840px;margin:14px auto 0;color:var(--muted);font-size:.9rem}
+@media(max-width:600px){.feedback-card{padding:6px;border-radius:14px}.feedback-card iframe{height:940px}}
+
 </style>
 <script type="importmap">
 {
@@ -2038,10 +2048,16 @@ main > .wrap > section.faq {
     <details><summary>What if it doesn't work for me?</summary><p>Email us at <a href="mailto:YOUR_EMAIL@example.com">YOUR_EMAIL@example.com</a>. We'll help you get it running, or refund you if we can't.</p></details>
    </div>
   </section>
+
+  <section class="feedback" id="feedback" aria-label="Private feedback">
+   <div class="section-head"><div class="eyebrow">A note to Glow</div><h2>Have a question or idea?</h2><p>Send a private message to the Glow creator. It won’t appear publicly on this site.</p></div>
+   <div class="feedback-card"><iframe title="Private Glow feedback form" src="https://docs.google.com/forms/d/e/1FAIpQLSceOfDytx9J4BkpkLPgmA2WX4qlM7DgMgJ8oAzzFcYM2VtDFw/viewform?embedded=true" loading="lazy">Loading the private feedback form…</iframe></div>
+   <p class="feedback-note">The form is hosted by Google. Your message is stored privately in the Glow creator’s Google Forms account. Email is optional if you’d like a reply. Please don’t include passwords or sensitive information.</p>
+  </section>
  </div>
 </main>
 <!-- ===== Footer ===== -->
-<footer><div class="wrap foot"><a class="brand" href="#top"><span class="logo"></span>GLOW</a><span>Ambient lighting for Windows.</span><div class="footlinks"><a href="#features">Features</a><a href="#faq">FAQ</a><a href="#trust">Requirements &amp; refunds</a><a href="mailto:YOUR_EMAIL@example.com">Support</a><a href="#top">Back to top ↑</a></div><span>© <span id="year"></span> Glow</span></div></footer>
+<footer><div class="wrap foot"><a class="brand" href="#top"><span class="logo"></span>GLOW</a><span>Ambient lighting for Windows.</span><div class="footlinks"><a href="#features">Features</a><a href="#faq">FAQ</a><a href="#feedback">Private feedback</a><a href="#trust">Requirements &amp; refunds</a><a href="mailto:YOUR_EMAIL@example.com">Support</a><a href="#top">Back to top ↑</a></div><span>© <span id="year"></span> Glow</span></div></footer>
 <!-- ===== Purchase notice (modal) ===== -->
 <div class="notice" id="notice" role="dialog" aria-modal="true" aria-labelledby="noticeTitle"><div class="modal"><h3 id="noticeTitle">Glow · CA$6.99</h3><p>The price and launch messaging are set. To make this button complete a real purchase and deliver the Windows app, connect your checkout page or installer URL.</p><button class="btn btn-primary" id="closeNotice">Got it</button></div></div>
 <script>
